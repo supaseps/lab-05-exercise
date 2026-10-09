@@ -13,6 +13,7 @@ List any resources used here, or simply put `N/A` if not applicable.
 * Prompt: (pasted my code). Without changing my code, can you move the delete button to the bottom of the screen?
 
 * Answer:
+
 package com.example.listycity
 
 import androidx.compose.foundation.clickable
@@ -250,6 +251,15 @@ fun CityListScreenPreview() {
         )
     }
 }
+
+** Prompt: look at this code. are the delete and update city options of this app connected to firebase?
+
+** Answer: Yes. Both Update City and Delete City are connected to Firebase Cloud Firestore in your code. The buttons call callbacks in MainActivity, which call methods in CityRepository.kt.However, your document identification can cause problems. document(city.name) uses the city’s name as the document ID; it does not search the document’s name field. If your documents have automatically generated IDs, these calls target the wrong location.
+Replace these two files in your project:
+- City.kt — stores each city’s permanent Firestore document ID.
+- CityRepository.kt — updates and deletes using that ID, so renaming works correctly. Add City now saves to Firestore too.
+
+  
 
 ## Verbal Collaboration
 
